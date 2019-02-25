@@ -7,9 +7,8 @@ const _ = require('lodash');
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
-var {ObjectID} = require('mongodb')
-
-
+var {ObjectID} = require('mongodb');
+var {authenticate} = require('./middleware/authenticate');
 
 var app =express();
 var port = process.env.PORT ;
@@ -120,6 +119,14 @@ app.patch('/todos/:id' , (req,res) => {
     })
 
 })
+
+app.get('/user/me',authenticate, (req,res) => {
+    res.send(req.user);
+})
+
+
+
+
        
 
 
